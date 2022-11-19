@@ -41,15 +41,22 @@ public class PianoKey extends Group {
         });
     }
 
+    private boolean isTouched = false;
     public void finishTouchi() {
         image.setColor(oldColor.r,oldColor.g,oldColor.b,1);
-        pros.clearActions();
-        pros.addAction(Actions.forever(Actions.sequence(Actions.moveBy(0,Constant.panelMoveSpeed,0.2f))));
-        disableArray.add(pros);
+        if (pros!=null) {
+            pros.clearActions();
+            pros.addAction(Actions.forever(Actions.sequence(Actions.moveBy(0, Constant.panelMoveSpeed, 0.2f))));
+            disableArray.add(pros);
+        }
         pros = null;
     }
 
     public void touchDownKey() {
+        if (isTouched){
+            finishTouchi();
+        }
+        isTouched = true;
         oldColor.r = color.r;
         oldColor.g = color.g;
         oldColor.b = color.b;

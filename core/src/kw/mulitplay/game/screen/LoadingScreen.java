@@ -27,7 +27,9 @@ import kw.mulitplay.game.screen.base.BaseScreen;
  */
 public class LoadingScreen extends BaseScreen {
     private float time = 0;
-//    private MapKeySound sound;
+    private float time1 = 0;
+
+    //    private MapKeySound sound;
     private String[] left;
     private String[] right;
     private PianoView view;
@@ -59,59 +61,129 @@ public class LoadingScreen extends BaseScreen {
     }
 
     private int index = 0;
-    float target = 0.4f;
+    float target = 0.5f;
+    private int index1 = 0;
+    float target1 = 0.5f;
+
 
     @Override
     public void render(float delta) {
         super.render(delta);
         time += delta;
-        if (time > target) {
-            if (left[index].equals("0")) {
+        time1 += delta;
 
-            }else {
-                HashMap<String, String> jianpuToAG = SoundKeyMap.jianpuToAG;
-                String s = jianpuToAG.get(left[index]);
-                String s1 = SoundKeyMap.AGToResouce.get(s);
-                if (s1==null){
-                    System.out.println(left[index]);
-                }
-                Sound sound = Gdx.audio.newSound(Gdx.files.internal(s1));
-                sound.play();
-            }
-            if (right[index].equals("0")) {
+        if (time1>target1) {
+            if (index1 >= left.length) {
+                System.out.println("---------left end");
+            } else {
+                target1 = 0.5f;
+                if (left[index1].equals("0")) {
 
-            }else {
-                HashMap<String, String> jianpuToAG = SoundKeyMap.jianpuToAG;
-                String s = jianpuToAG.get(right[index]);
-                System.out.println(s);
-
-                float times = 0.2f;
-                System.out.println(s);
-                String s2 = SoundKeyMap.AGToIndex.get(s);
-                PianoKey actor = view.getHashMap().get(s2);
-                actor.touchDownKey();
-                if (index+1<right.length){
-                    if (right[index+1].equals("0")){
-                        times = 0.5f;
+                } else {
+                    HashMap<String, String> jianpuToAG = SoundKeyMap.jianpuToAG;
+                    String s3 = left[index1];
+                    boolean contains = s3.contains("+");
+                    boolean contains1 = s3.contains("-");
+                    boolean contains2 = s3.contains("(");
+                    s3 = s3.replace("+", "");
+                    s3 = s3.replace("-", "");
+                    s3 = s3.replace("(", "");
+                    String s = jianpuToAG.get(s3);
+                    System.out.println(s);
+                    float times = 0.5f;
+                    System.out.println(s);
+                    String s2 = SoundKeyMap.AGToIndex.get(s);
+                    PianoKey actor = view.getHashMap().get(s2);
+                    actor.touchDownKey();
+                    if (index1 + 1 < right.length) {
+                        if (left[index1 + 1].equals("0")) {
+                            times = 1f;
+                        }
                     }
+                    if (contains) {
+                        target1 = 0.7f;
+                        times = 0.7f;
+                    }
+                    if (contains1) {
+                        target1 = 0.3f;
+                        times = 0.3f;
+                    }
+                    if (contains2) {
+                        target1 = 0.25f;
+                        times = 0.25f;
+                    }
+                    actor.addAction(Actions.delay(times, Actions.run(() -> {
+                        actor.finishTouchi();
+                    })));
+                    String s1 = SoundKeyMap.AGToResouce.get(s);
+                    Sound sound = Gdx.audio.newSound(Gdx.files.internal(s1));
+                    sound.play();
                 }
 
-                actor.addAction(Actions.delay(times,Actions.run(()->{
-                    actor.finishTouchi();
-                })));
-                String s1 = SoundKeyMap.AGToResouce.get(s);
-                Sound sound = Gdx.audio.newSound(Gdx.files.internal(s1));
-                sound.play();
             }
+                time1 = 0;
+                index1++;
 
-            time =0;
-            index++;
+        }
+        if (time > target) {
+            if (index >= right.length) {
+                System.out.println("---------right end");
+            } else {
+                target = 0.5f;
+
+                if (right[index].equals("0")) {
+
+                } else {
+                    HashMap<String, String> jianpuToAG = SoundKeyMap.jianpuToAG;
+                    String s3 = right[index];
+                    boolean contains = s3.contains("+");
+                    boolean contains1 = s3.contains("-");
+                    boolean contains2 = s3.contains("(");
+                    s3 = s3.replace("+", "");
+                    s3 = s3.replace("-", "");
+                    s3 = s3.replace("(", "");
+                    String s = jianpuToAG.get(s3);
+                    System.out.println(s);
+                    float times = 0.5f;
+                    System.out.println(s);
+                    String s2 = SoundKeyMap.AGToIndex.get(s);
+                    PianoKey actor = view.getHashMap().get(s2);
+                    actor.touchDownKey();
+                    if (index + 1 < right.length) {
+                        if (right[index + 1].equals("0")) {
+                            times = 1f;
+                        }
+                    }
+                    if (contains) {
+                        target = 0.7f;
+                        times = 0.7f;
+                    }
+                    if (contains1) {
+                        target = 0.3f;
+                        times = 0.3f;
+                    }
+                    if (contains2) {
+                        target = 0.25f;
+                        times = 0.25f;
+                    }
+                    actor.addAction(Actions.delay(times, Actions.run(() -> {
+                        actor.finishTouchi();
+                    })));
+                    String s1 = SoundKeyMap.AGToResouce.get(s);
+                    Sound sound = Gdx.audio.newSound(Gdx.files.internal(s1));
+                    sound.play();
+                }
+            }
+                time = 0;
+                index++;
+
 //            target = sound.xx(sound.str[index]);
 //            index++;
 //            if (sound.str.length<=index){
 //                index = 0;
 //            }
 //            time = 0;
+
         }
     }
 }
