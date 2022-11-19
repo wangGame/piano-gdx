@@ -1,6 +1,7 @@
 package kw.mulitplay.game.data;
 
 public class Json {
+    public float bpm = 120;
     public String[] left;
     public String[] right;
     public Json(){

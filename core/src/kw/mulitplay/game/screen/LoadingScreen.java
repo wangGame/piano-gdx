@@ -61,9 +61,9 @@ public class LoadingScreen extends BaseScreen {
     }
 
     private int index = 0;
-    float target = 0.5f;
+    float target = 10.5f;
     private int index1 = 0;
-    float target1 = 0.5f;
+    float target1 = 10.5f;
 
 
     @Override
@@ -75,6 +75,7 @@ public class LoadingScreen extends BaseScreen {
         if (time1>target1) {
             if (index1 >= left.length) {
                 System.out.println("---------left end");
+                index1=0;
             } else {
                 target1 = 0.5f;
                 if (left[index1].equals("0")) {
@@ -128,6 +129,7 @@ public class LoadingScreen extends BaseScreen {
         if (time > target) {
             if (index >= right.length) {
                 System.out.println("---------right end");
+                index = 0;
             } else {
                 target = 0.5f;
 
