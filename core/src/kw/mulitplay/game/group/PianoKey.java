@@ -29,30 +29,38 @@ public class PianoKey extends Group {
         addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                oldColor.r = color.r;
-                oldColor.g = color.g;
-                oldColor.b = color.b;
-                image.setColor(0.3f,0.3f,0.3f,1);
-                pros = new Image(new Texture("pianoImg/white.png"));
-                addActor(pros);
-                pros.setColor(moveColor);
-                pros.setSize(getWidth(),1);
-                sound.play();
-                pros.setY(image.getY(Align.top));
-                pros.addAction(Actions.forever(Actions.sizeBy(0, Constant.panelMoveSpeed,0.2f)));
+                touchDownKey();
                 return super.touchDown(event, x, y, pointer, button);
             }
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 super.touchUp(event, x, y, pointer, button);
-                image.setColor(oldColor.r,oldColor.g,oldColor.b,1);
-                pros.clearActions();
-                pros.addAction(Actions.forever(Actions.sequence(Actions.moveBy(0,Constant.panelMoveSpeed,0.2f))));
-                disableArray.add(pros);
-                pros = null;
+                finishTouchi();
             }
         });
+    }
+
+    public void finishTouchi() {
+        image.setColor(oldColor.r,oldColor.g,oldColor.b,1);
+        pros.clearActions();
+        pros.addAction(Actions.forever(Actions.sequence(Actions.moveBy(0,Constant.panelMoveSpeed,0.2f))));
+        disableArray.add(pros);
+        pros = null;
+    }
+
+    public void touchDownKey() {
+        oldColor.r = color.r;
+        oldColor.g = color.g;
+        oldColor.b = color.b;
+        image.setColor(0.3f,0.3f,0.3f,1);
+        pros = new Image(new Texture("pianoImg/white.png"));
+        addActor(pros);
+        pros.setColor(moveColor);
+        pros.setSize(getWidth(),1);
+        sound.play();
+        pros.setY(image.getY(Align.top));
+        pros.addAction(Actions.forever(Actions.sizeBy(0, Constant.panelMoveSpeed,0.2f)));
     }
 
     @Override
@@ -85,7 +93,6 @@ public class PianoKey extends Group {
     }
 
     public void setMovePanelColor(Color color) {
-        System.out.println(color);
         this.moveColor = color;
     }
 }
