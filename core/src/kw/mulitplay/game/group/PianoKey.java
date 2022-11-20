@@ -2,6 +2,7 @@ package kw.mulitplay.game.group;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.AudioDevice;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
@@ -80,6 +81,8 @@ public class PianoKey extends Group {
     }
 
     public void touchDownKey() {
+//        AudioDevice audioDevice = Gdx.audio.newAudioDevice(44, false);
+//        audioDevice.writeSamples();
         if (isTouched){
             finishTouchi();
         }

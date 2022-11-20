@@ -5,13 +5,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.CpuSpriteBatch;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import kw.mulitplay.game.constant.Constant;
-import kw.mulitplay.game.screen.AutoScreen;
-import kw.mulitplay.game.screen.LoadingScreen;
 
 public class MulitPlayGame extends Game {
     private Viewport viewport;
@@ -20,7 +17,7 @@ public class MulitPlayGame extends Game {
     public void create() {
         initInstance();
         //create viewport and as a constant
-        setScreen(new LoadingScreen());
+        setScreen(new DIMIDemoScreen());
     }
 
     public void initInstance(){
