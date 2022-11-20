@@ -5,14 +5,17 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.CpuSpriteBatch;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import kw.mulitplay.game.constant.Constant;
+import kw.mulitplay.game.screen.AutoScreen;
 import kw.mulitplay.game.screen.LoadingScreen;
 
 public class MulitPlayGame extends Game {
     private Viewport viewport;
+
     @Override
     public void create() {
         initInstance();
@@ -47,7 +50,7 @@ public class MulitPlayGame extends Game {
 
     @Override
     public void render() {
-        Gdx.gl.glClearColor(1,0,0,1);
+        Gdx.gl.glClearColor(0.4f,0.4f,0.4f,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         super.render();
     }

@@ -1,12 +1,15 @@
 package kw.mulitplay.game;
 
+import com.badlogic.gdx.utils.Array;
+
 import java.util.HashMap;
 
 public class SoundKeyMap {
     public static HashMap<String,String> jianpuToAG = new HashMap<>();
     public static HashMap<String,String> AGToResouce = new HashMap<>();
     public static HashMap<String,String> AGToIndex = new HashMap<>();
-
+    public static HashMap<String,String> indexToAG = new HashMap<>();
+    public static Array<String> array = new Array<>();
 
     static String AG[] = {"A","B","C","D","E","F","G"};
     static {
@@ -81,12 +84,12 @@ public class SoundKeyMap {
         static String path = "piano2/p";
 
     static {
-        AGToResouce.put("A2", path+"1"+".mp3");
-        AGToResouce.put("B2", path+"3"+".mp3");
-        AGToResouce.put("C1", path+"4"+".mp3");
-        AGToResouce.put("D1", path+"6"+".mp3");
-        AGToResouce.put("E1", path+"8"+".mp3");
-        AGToResouce.put("F1", path+"9"+".mp3");
+        AGToResouce.put("A2", path+"01"+".mp3");
+        AGToResouce.put("B2", path+"03"+".mp3");
+        AGToResouce.put("C1", path+"04"+".mp3");
+        AGToResouce.put("D1", path+"06"+".mp3");
+        AGToResouce.put("E1", path+"08"+".mp3");
+        AGToResouce.put("F1", path+"09"+".mp3");
         AGToResouce.put("G1", path+"11"+".mp3");
         AGToResouce.put("A1", path+"13"+".mp3");
         AGToResouce.put("B1", path+"15"+".mp3");
@@ -112,7 +115,7 @@ public class SoundKeyMap {
         AGToResouce.put("a1",path+"49"+".mp3");
         AGToResouce.put("b1",path+"51"+".mp3");
         AGToResouce.put("c2",path+"52"+".mp3");
-        AGToResouce.put("d3",path+"54"+".mp3");
+        AGToResouce.put("d2",path+"54"+".mp3");
         AGToResouce.put("e2",path+"56"+".mp3");
         AGToResouce.put("f2",path+"57"+".mp3");
         AGToResouce.put("g2",path+"59"+".mp3");
@@ -134,6 +137,61 @@ public class SoundKeyMap {
         AGToResouce.put("b4",path+"87"+".mp3");
         AGToResouce.put("c5",path+"88"+".mp3");
     }
+    static {
+        indexToAG.put("1",   "A2"           );
+        indexToAG.put("3",   "B2"           );
+        indexToAG.put("4",   "C1"           );
+        indexToAG.put("6",   "D1"           );
+        indexToAG.put("8",   "E1"           );
+        indexToAG.put("9",   "F1"           );
+        indexToAG.put( "11",     "G1"            );
+        indexToAG.put( "13",     "A1"            );
+        indexToAG.put( "15",     "B1"            );
+        indexToAG.put( "16",  "C"            );
+        indexToAG.put( "18",  "D"            );
+        indexToAG.put( "20",  "E"            );
+        indexToAG.put( "21",  "F"            );
+        indexToAG.put( "23",  "G"            );
+        indexToAG.put( "25",  "A"            );
+        indexToAG.put( "27",  "B"               );
+        indexToAG.put( "28",  "c"               );
+        indexToAG.put( "30",  "d"               );
+        indexToAG.put( "32",  "e"               );
+        indexToAG.put( "33",  "f"               );
+        indexToAG.put( "35",  "g"               );
+        indexToAG.put( "37",  "a"            );
+        indexToAG.put( "39",  "b"            );
+        indexToAG.put( "40",  "c1"            );
+        indexToAG.put( "42",  "d1"            );
+        indexToAG.put("44",   "e1");
+        indexToAG.put("45",   "f1");
+        indexToAG.put("47",   "g1");
+        indexToAG.put("49",   "a1");
+        indexToAG.put("51",   "b1");
+        indexToAG.put("52",   "c2");
+        indexToAG.put("54",   "d3");
+        indexToAG.put("56",   "e2");
+        indexToAG.put("57",   "f2");
+        indexToAG.put("59",   "g2");
+        indexToAG.put("61",   "a2");
+        indexToAG.put("63",   "b2");
+        indexToAG.put("64",   "c3");
+        indexToAG.put("66",   "d3");
+        indexToAG.put("68",   "e3");
+        indexToAG.put("69",   "f3");
+        indexToAG.put("71",   "g3");
+        indexToAG.put("73",   "a3");
+        indexToAG.put("75",   "b3");
+        indexToAG.put("76",   "c4");
+        indexToAG.put("78",   "d4");
+        indexToAG.put("80",   "e4");
+        indexToAG.put("81",   "f4");
+        indexToAG.put("83",   "g4");
+        indexToAG.put("85",   "a4");
+        indexToAG.put("87",   "b4");
+        indexToAG.put("88",   "c5");
+    }
+
 
     static {
         AGToIndex.put("A2", "1");
@@ -189,7 +247,7 @@ public class SoundKeyMap {
         AGToIndex.put("b4","87");
         AGToIndex.put("c5","88");
     }
-//
+
 //    static {
 //        AGToResouce.put("A2", "6....");
 //        AGToResouce.put("B2", "7....");

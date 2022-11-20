@@ -1,10 +1,15 @@
 package kw.mulitplay.game.screen.base;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyListener;
 
 import kw.mulitplay.game.constant.Constant;
 
@@ -17,6 +22,11 @@ public abstract class BaseScreen implements Screen {
         initData();
         initView();
         initListener();
+        addBack();
+    }
+
+    protected void addBack(){
+
     }
 
     protected abstract void initView();
@@ -30,7 +40,12 @@ public abstract class BaseScreen implements Screen {
     public void render(float delta) {
         stage.act();
         stage.draw();
+        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
+            back();
+        }
     }
+
+    protected abstract void back();
 
     @Override
     public void resize(int width, int height) {

@@ -1,11 +1,10 @@
 package kw.mulitplay.game.data;
 
-public class Json {
+public class HuanleSong {
     public float bpm = 120;
     public String[] left;
     public String[] right;
-    public String l = "4/4";
-    public Json(){
+    public HuanleSong(){
         left = new String[]{
                 "1.","5.","1.","5.",            "5.","2.","5.","2.",
                 "1.","5.","1.","5.",            "5.","2.","5.","2.","1.",
