@@ -1,5 +1,6 @@
 package kw.mulitplay.game.time;
 
+import kw.mulitplay.game.constant.Constant;
 import kw.mulitplay.game.group.PianoView;
 import kw.mulitplay.game.midi.handler.MidiInstruments;
 import kw.mulitplay.game.midi.handler.Note;
@@ -9,14 +10,12 @@ public class ActorTimeLine {
     private Note note;
     private float endTime;
     private int status;
-    private float deley;
     private PianoView view;
 
     public ActorTimeLine(Note note, PianoView view, int resolution){
         this.note = note;
         this.startTime = note.getTimeStamp() * 60.0f / resolution / 120.0f*2;
-        this.endTime = (note.getTimeStamp()+note.getLength()/3.0f)*60.0f / resolution / 120.0f*2;
-
+        this.endTime = (note.getTimeStamp()+note.getLength()/5)*60.0f / resolution / 120.0f*2;
         this.view = view;
     }
 
@@ -26,7 +25,7 @@ public class ActorTimeLine {
                 System.out.println(endTime - startTime);
                 view.getHashMap().get((note.getKey())+"").touchDownKey();
 
-//                MidiInstruments.noteOn(note.getKey());
+                MidiInstruments.noteOn(note.getKey());
                 status = 1;
             }
         }else {

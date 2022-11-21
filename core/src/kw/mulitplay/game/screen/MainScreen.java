@@ -14,25 +14,34 @@ public class MainScreen extends BaseScreen {
     @Override
     protected void initView() {
         Table table = new Table(){{
-            Image image = new Image(Asset.getAsset().getTexture("main/3.png"));
-            add(image).padLeft(50).padRight(50);
-            image.addListener(new ClickListener(){
+            Image selfPlay = new Image(Asset.getAsset().getTexture("main/3.png"));
+            add(selfPlay).padLeft(50).padRight(50);
+            selfPlay.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
                     enterScreen(new TanPianoScreen());
                 }
             });
-            Image image1 = new Image(Asset.getAsset().getTexture("main/4.png"));
-            add(image1).padLeft(50).padRight(50);
-            pack();
-            image1.addListener(new ClickListener(){
+            Image autoPlay = new Image(Asset.getAsset().getTexture("main/4.png"));
+            add(autoPlay).padLeft(50).padRight(50);
+            autoPlay.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
                     enterScreen(new AutoScreen());
                 }
             });
+            Image midi = new Image(Asset.getAsset().getTexture("main/3.png"));
+            add(midi).padLeft(50).padRight(50);
+            midi.addListener(new ClickListener(){
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    enterScreen(new DIMIDemoScreen());
+                }
+            });
+            pack();
             setPosition(Constant.width/2,Constant.height/2, Align.center);
         }};
         stage.addActor(table);

@@ -14,7 +14,7 @@ public class DesktopLauncher {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
         config.title = "wrod squares";
         config.width =1040; //485
-        config.height =4440;
+        config.height =440;
         config.x = 10;
         config.y = 10;
         new LwjglApplication(new MulitPlayGame(),config);

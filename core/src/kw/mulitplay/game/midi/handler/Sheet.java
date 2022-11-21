@@ -21,7 +21,6 @@ package kw.mulitplay.game.midi.handler;
  * @author david
  */
 public class Sheet {
-
     private final int resolution;
     private final Channel[] channels;
     private final long length;

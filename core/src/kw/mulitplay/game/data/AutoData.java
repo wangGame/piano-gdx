@@ -71,7 +71,7 @@ public class AutoData {
                         target = baseTime - baseTime/(2.0f*numKh);
                         times = target;
                     }
-                    actor.addAction(Actions.delay(times, Actions.run(() -> {
+                    actor.addAction(Actions.delay(times-0.1f, Actions.run(() -> {
                         actor.finishTouchi();
                     })));
                     String s1 = SoundKeyMap.AGToResouce.get(s);

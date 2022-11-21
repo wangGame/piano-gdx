@@ -1,13 +1,11 @@
 package kw.mulitplay.game.group;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.audio.AudioDevice;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -28,7 +26,7 @@ import kw.mulitplay.game.data.HandleData;
 
 public class PianoKey extends Group {
     private Sound sound;
-    private Color oldColor = new Color();
+    private Color oldColor;
     private Image image;
     private Color moveColor;
     private Image pros;
@@ -37,20 +35,33 @@ public class PianoKey extends Group {
     private int keyIndex;
     private ArrayList<Integer> musicData;
     private byte[] fftData;
+    private boolean isTouched;
+    private CallBack showBack;
+    private CallBack hide;
+    private CallBack back;
+
+
+    public PianoKey(NinePatch ninePatch,int keyIndex){
+        this.image = new Image(ninePatch);
+        addActor(image);
+        initData(keyIndex);
+    }
 
     public PianoKey(Texture texture, int keyIndex){
-        disableArray = new Array<>();
+        this.image = new Image(texture);
+        initData(keyIndex);
+    }
+
+    private void initData(int keyIndex) {
+        this.oldColor = new Color();
+        this.disableArray = new Array<>();
         this.musicData = new ArrayList<>();
         this.keyIndex = keyIndex;
-        image = new Image(texture);
-        addActor(image);
-        keyInfo = new Label("",new Label.LabelStyle(){{
-            font = AssetLoadFile.getBR40();
-        }});
-        addActor(keyInfo);
-        keyInfo.setColor(Color.BLACK);
-        keyInfo.setFontScale(0.5f);
-        keyInfo.setAlignment(Align.center);
+        initKeyInfo();
+        initListener();
+    }
+
+    private void initListener() {
         addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -66,7 +77,16 @@ public class PianoKey extends Group {
         });
     }
 
-    private boolean isTouched = false;
+    private void initKeyInfo() {
+        this.keyInfo = new Label("",new Label.LabelStyle(){{
+            font = AssetLoadFile.getBR40();
+        }});
+        addActor(keyInfo);
+        keyInfo.setColor(Color.BLACK);
+        keyInfo.setFontScale(0.5f);
+        keyInfo.setAlignment(Align.center);
+    }
+
     public void finishTouchi() {
         image.setColor(oldColor.r,oldColor.g,oldColor.b,1);
         if (pros!=null) {
@@ -90,8 +110,8 @@ public class PianoKey extends Group {
         if (isTouched){
             finishTouchi();
         }
-        if (show!=null) {
-            show.callBack(nameKK);
+        if (showBack !=null) {
+            showBack.callBack(touchButtonName);
         }
         if (back!=null){
             back.callBack(getFftData());
@@ -101,12 +121,13 @@ public class PianoKey extends Group {
         oldColor.g = color.g;
         oldColor.b = color.b;
         image.setColor(0.3f,0.3f,0.3f,1);
-        pros = new Image(new Texture("pianoImg/white.png"));
+        pros = new Image(new Texture("main/white.png"));
         addActor(pros);
+        pros.toBack();
         pros.setColor(moveColor);
-        pros.setSize(getWidth(),10);
+        pros.setSize(getWidth(),20);
         sound.play();
-        pros.setY(image.getY(Align.top));
+        pros.setY(image.getY(Align.top),Align.top);
         pros.addAction(Actions.forever(Actions.sizeBy(0, Constant.panelMoveSpeed,0.2f)));
     }
 
@@ -130,7 +151,6 @@ public class PianoKey extends Group {
         this.sound = Asset.assetManager.get("piano2/p"+pathSound+".mp3");
         FileHandle internal = Gdx.files.internal("piano2/p" + pathSound + ".mp3");
         byte[] bytes = internal.readBytes();
-
         HandleData.handleData(bytes,musicData,3,1024,1000);
         fftData = bytes;
     }
@@ -157,20 +177,15 @@ public class PianoKey extends Group {
     }
 
     public void setLabel() {
-        String s = "";
-        s = SoundKeyMap.indexToAG.get(keyIndex+"");
-        keyInfo.setText(s);
-        this.nameKK = s;
+        String keyNameTemp = SoundKeyMap.indexToAG.get(keyIndex+"");
+        keyInfo.setText(keyNameTemp);
+        this.touchButtonName = keyNameTemp;
         keyInfo.setPosition(15,50,Align.center);
     }
 
-    private String nameKK;
-
-    private CallBack show;
-    private CallBack hide;
-    private CallBack back;
+    private String touchButtonName;
     public void addCallBack(CallBack show,CallBack hide,CallBack back) {
-        this.show = show;
+        this.showBack = show;
         this.hide = hide;
         this.back = back;
     }

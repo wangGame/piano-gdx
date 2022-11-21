@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiEvent;
+import javax.sound.midi.MidiFileFormat;
 import javax.sound.midi.MidiMessage;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.Sequence;
@@ -107,7 +108,8 @@ public class MidiUtils {
 
     public static Sheet getSheet(File source) throws InvalidMidiDataException, IOException {
         Sequence sequence = MidiSystem.getSequence(source);
-
+        MidiFileFormat midiFileFormat = MidiSystem.getMidiFileFormat(source);
+        Track[] tracks = sequence.getTracks();
         float divisionType = sequence.getDivisionType();
         long length = sequence.getMicrosecondLength();
         int resolution;
@@ -119,7 +121,25 @@ public class MidiUtils {
             resolution = -1;
         }
         Channel[] channels = getChannels(sequence);
-
         return new Sheet(channels, resolution, length);
     }
+
+//
+//    public static Sheet getSheet(File source) throws InvalidMidiDataException, IOException {
+//        Sequence sequence = MidiSystem.getSequence(source);
+//
+//        float divisionType = sequence.getDivisionType();
+//        long length = sequence.getMicrosecondLength();
+//        int resolution;
+//        if (divisionType == Sequence.PPQ) {
+//            resolution = sequence.getResolution();
+//        } else {
+//            System.err.print("Unhandled division type: ");
+//            System.err.println(divisionType);
+//            resolution = -1;
+//        }
+//        Channel[] channels = getChannels(sequence);
+//
+//        return new Sheet(channels, resolution, length);
+//    }
 }
