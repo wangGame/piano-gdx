@@ -9,10 +9,12 @@ import java.util.HashMap;
 public class AssetLoadFile {
     public static HashMap<String,Sound> hashMap = new HashMap<>();
     public static void loadSound(){
-        HashMap<String, String> agToResouce = SoundKeyMap.AGToResouce;
-        for (String value : agToResouce.values()) {
-            System.out.println(value);
-            Asset.assetManager.load(value,Sound.class);
+        for (int i = 1; i <= 88; i++) {
+            if (i<10){
+                Asset.assetManager.load("piano2/p0"+i+".mp3",Sound.class);
+            }else {
+                Asset.assetManager.load("piano2/p"+i+".mp3",Sound.class);
+            }
         }
     }
 
@@ -21,6 +23,8 @@ public class AssetLoadFile {
     }
 
     public static BitmapFont getBR40(){
-        return Asset.assetManager.get("Bahnschrift-Regular_40_1.fnt",BitmapFont.class);
+        Asset.getAsset().assetManager.load("Bahnschrift-Regular_40_1.fnt",BitmapFont.class);
+        Asset.getAsset().assetManager.finishLoading();
+        return Asset.getAsset().assetManager.get("Bahnschrift-Regular_40_1.fnt",BitmapFont.class);
     }
 }

@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.Align;
 import com.kw.gdx.asset.Asset;
 
 import kw.mulitplay.game.AssetLoadFile;
+import kw.mulitplay.game.DIMIDemoScreen;
 import kw.mulitplay.game.constant.Constant;
 import kw.mulitplay.game.screen.base.BaseScreen;
 
@@ -34,7 +35,7 @@ public class LoadingScreen extends BaseScreen {
     public void render(float delta) {
         super.render(delta);
         if (Asset.assetManager.update()) {
-            enterScreen(new MainScreen());
+            enterScreen(new DIMIDemoScreen());
         }
     }
 

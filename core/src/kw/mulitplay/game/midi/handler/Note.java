@@ -57,14 +57,13 @@ public class Note {
     public boolean isBlackKey() {
         return (key - 1) % 12 == 0 || (key - 3) % 12 == 0 || (key - 6) % 12 == 0 || (key - 8) % 12 == 0 || (key - 10) % 12 == 0;
     }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("@").append(getTimeStamp()).append(',');
-        sb.append("at:").append(getNoteName()).append(getOctave()).append(',');
-        sb.append("length:").append(getLength());
-
-        return sb.toString();
-    }
+    //    @Override
+//    public String toString() {
+//        StringBuilder sb = new StringBuilder();
+//        sb.append("@").append(getTimeStamp()).append(',');
+//        sb.append("at:").append(getNoteName()).append(getOctave()).append(',');
+//        sb.append("length:").append(getLength());
+//
+//        return sb.toString();
+//    }
 }

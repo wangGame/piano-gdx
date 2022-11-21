@@ -80,6 +80,10 @@ public class PianoKey extends Group {
         pros = null;
     }
 
+    public boolean isTouched() {
+        return isTouched;
+    }
+
     public void touchDownKey() {
 //        AudioDevice audioDevice = Gdx.audio.newAudioDevice(44, false);
 //        audioDevice.writeSamples();
@@ -100,7 +104,7 @@ public class PianoKey extends Group {
         pros = new Image(new Texture("pianoImg/white.png"));
         addActor(pros);
         pros.setColor(moveColor);
-        pros.setSize(getWidth(),1);
+        pros.setSize(getWidth(),10);
         sound.play();
         pros.setY(image.getY(Align.top));
         pros.addAction(Actions.forever(Actions.sizeBy(0, Constant.panelMoveSpeed,0.2f)));
@@ -140,7 +144,7 @@ public class PianoKey extends Group {
         super.act(delta);
         if (disableArray.size>0) {
             for (Image image1 : disableArray) {
-                if (image1.getY()>600) {
+                if (image1.getY()>2600) {
                     image1.clearActions();
                     image1.remove();
                 }

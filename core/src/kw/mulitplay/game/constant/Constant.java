@@ -14,5 +14,5 @@ public class Constant {
 
     public static float bgScale = 1;
     public static AssetManager assetManager;
-    public static float panelMoveSpeed = 50;
+    public static float panelMoveSpeed = 100;
 }

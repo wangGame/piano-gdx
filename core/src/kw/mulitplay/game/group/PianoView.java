@@ -51,7 +51,7 @@ public class PianoView extends Group {
             image.setLabel();
 //            image.setSound(Asset.assetManager.get("piano2/p"+path+".mp3"));
             image.setPathSound(path);
-            System.out.println(keyIndex);
+//            System.out.println(keyIndex);
             image.setMovePanelColor(ColorUtils.array.get(keyIndex));
             image.addCallBack(new CallBack() {
                 @Override

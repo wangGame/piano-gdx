@@ -60,7 +60,7 @@ public class MusicLineActor extends Actor {
         batch.end();
         Gdx.gl.glEnable(GL20.GL_BLEND);
 
-        System.out.println("---------------------");
+//        System.out.println("---------------------");
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         shapeRenderer.setTransformMatrix(batch.getTransformMatrix());
         shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
@@ -91,7 +91,7 @@ public class MusicLineActor extends Actor {
             }else{
                 height[i] = newHeight;
             }
-            System.out.println(height[i]);
+//            System.out.println(height[i]);
             vex[i*2]=getX()+width1*i+40;
             vex[2*i+1]=getY()+height[i]*700;
             vex2[i*2]=getX()+width1*i+40;
