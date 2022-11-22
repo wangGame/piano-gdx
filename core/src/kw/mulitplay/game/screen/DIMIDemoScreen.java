@@ -17,7 +17,6 @@ import kw.mulitplay.game.midi.handler.MidiInstruments;
 import kw.mulitplay.game.midi.handler.MidiUtils;
 import kw.mulitplay.game.midi.handler.Note;
 import kw.mulitplay.game.midi.handler.Sheet;
-import kw.mulitplay.game.midi.handler.SheetUtils;
 import kw.mulitplay.game.screen.base.BaseScreen;
 import kw.mulitplay.game.time.ActorTimeLine;
 
@@ -41,21 +40,18 @@ public class DIMIDemoScreen extends BaseScreen {
         view.showPianoKey();
         stage.addActor(view);
         try {
-            Instrument[] instruments = MidiInstruments.getInstruments();
+            MidiInstruments.getInstruments();
 //            MidiInstruments.selectInstrument(instruments[4]);
         } catch (MidiUnavailableException e) {
             e.printStackTrace();
         }
         FileHandle source = new FileHandle("3.mid");
         AbstractModeController controller = new FluidModeController();
-
         try {
             GameModeUtils.setGameMode(controller);
-            SheetUtils.musicSheet = MidiUtils.getSheet(source.file());
-            Sheet musicSheet = SheetUtils.musicSheet;
-
-            resolution = musicSheet.getResolution();
-            Channel[] channels = SheetUtils.musicSheet.getChannels();
+            Sheet sheet = MidiUtils.getSheet(source.file());
+            Channel[] channels = sheet.getChannels();
+            resolution = sheet.getResolution();
             for (Channel channel : channels) {
                 channelArray.add(channel);
             }

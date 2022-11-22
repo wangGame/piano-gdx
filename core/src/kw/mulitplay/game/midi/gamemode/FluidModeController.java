@@ -17,14 +17,6 @@
 package kw.mulitplay.game.midi.gamemode;
 
 import java.util.Arrays;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
-import javafx.beans.property.Property;
-import javafx.event.ActionEvent;
-import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
-import javafx.util.Duration;
 import kw.mulitplay.game.midi.handler.MidiInstruments;
 import kw.mulitplay.game.midi.handler.Note;
 
@@ -45,41 +37,6 @@ public class FluidModeController extends AbstractModeController {
         note_start = new double[NOTE_RANGE];
         note_end = new double[NOTE_RANGE];
         Arrays.fill(note_start, NOTE_OFF);
-    }
-
-    @Override
-    public void setupNote(Pane pane, Rectangle bar, Timeline timeline, Note note, double show_t, double start_t, double end_t) {
-        Property YProperty = bar.layoutYProperty();
-        double barHeight = bar.getHeight();
-        double paneHeight = pane.getHeight();
-        int key = note.getKey();
-
-        KeyFrame show = new KeyFrame(
-                Duration.millis(show_t),
-                new KeyValue(YProperty, -barHeight)
-        );
-
-        KeyFrame start = new KeyFrame(
-                Duration.millis(start_t),
-                (ActionEvent t) -> {
-                    MidiInstruments.noteOn(key);
-                    note_start[key] = start_t;
-                    note_end[key] = end_t;
-                },
-                new KeyValue(YProperty, paneHeight - barHeight)
-        );
-
-        KeyFrame end = new KeyFrame(
-                Duration.millis(end_t),
-                (ActionEvent t) -> {
-                    MidiInstruments.noteOff(key);
-                    note_start[key] = NOTE_OFF;
-                    note_end[key] = NOTE_OFF;
-                },
-                new KeyValue(YProperty, paneHeight)
-        );
-
-        timeline.getKeyFrames().addAll(show, start, end);
     }
 
     @Override

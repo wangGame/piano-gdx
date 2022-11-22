@@ -125,7 +125,7 @@ public class PianoKey extends Group {
         addActor(pros);
         pros.toBack();
         pros.setColor(moveColor);
-        pros.setSize(getWidth(),20);
+        pros.setSize(getWidth(),1);
         sound.play();
         pros.setY(image.getY(Align.top),Align.top);
         pros.addAction(Actions.forever(Actions.sizeBy(0, Constant.panelMoveSpeed,0.2f)));
