@@ -189,4 +189,8 @@ public class PianoKey extends Group {
         this.hide = hide;
         this.back = back;
     }
+
+    public Sound getSound() {
+        return sound;
+    }
 }
