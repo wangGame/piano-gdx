@@ -1,4 +1,4 @@
 @echo off
-git add ./ >>../add.txt
-git commit -m "update code" >>../commit.txt
-git pull >> pull.txt
+git add ./ >>../log/add.txt
+git commit -m "update code" >>../log/commit.txt
+git pull >> ../log/pull.txt
