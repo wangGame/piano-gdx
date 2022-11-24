@@ -25,6 +25,7 @@ public class TanPianoScreen extends BaseScreen {
         image.setSize(Constant.width,Constant.height);
         image.setColor(246/255.0f,239/255.0f,229/255.0f,1);
         view = new PianoView();
+        view.setMode(0);
         stage.addActor(view);
         view.showPianoKey();
     }

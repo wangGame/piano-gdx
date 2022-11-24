@@ -39,7 +39,7 @@ public class PianoKey extends Group {
     private CallBack showBack;
     private CallBack hide;
     private CallBack back;
-
+    private int mode = 0;
 
     public PianoKey(NinePatch ninePatch,int keyIndex){
         this.image = new Image(ninePatch);
@@ -107,28 +107,30 @@ public class PianoKey extends Group {
     public void touchDownKey() {
 //        AudioDevice audioDevice = Gdx.audio.newAudioDevice(44, false);
 //        audioDevice.writeSamples();
-        if (isTouched){
+        if (isTouched) {
             finishTouchi();
         }
-        if (showBack !=null) {
+        if (showBack != null) {
             showBack.callBack(touchButtonName);
         }
-        if (back!=null){
+        if (back != null) {
             back.callBack(getFftData());
         }
         isTouched = true;
         oldColor.r = color.r;
         oldColor.g = color.g;
         oldColor.b = color.b;
-        image.setColor(0.3f,0.3f,0.3f,1);
-        pros = new Image(new Texture("main/white.png"));
-        addActor(pros);
-        pros.toBack();
-        pros.setColor(moveColor);
-        pros.setSize(getWidth(),1);
+        image.setColor(0.3f, 0.3f, 0.3f, 1);
+        if (mode != Constant.DOWN) {
+            pros = new Image(new Texture("main/white.png"));
+            addActor(pros);
+            pros.toBack();
+            pros.setColor(moveColor);
+            pros.setSize(getWidth(), 1);
+            pros.setY(image.getY(Align.top), Align.top);
+            pros.addAction(Actions.forever(Actions.sizeBy(0, Constant.panelMoveSpeed, 0.2f)));
+        }
         sound.play();
-        pros.setY(image.getY(Align.top),Align.top);
-        pros.addAction(Actions.forever(Actions.sizeBy(0, Constant.panelMoveSpeed,0.2f)));
     }
 
     @Override
@@ -192,5 +194,9 @@ public class PianoKey extends Group {
 
     public Sound getSound() {
         return sound;
+    }
+
+    public void setMode(int mode) {
+        this.mode = mode;
     }
 }

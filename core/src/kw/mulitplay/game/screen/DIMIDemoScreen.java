@@ -4,15 +4,11 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
 
 import java.util.ArrayList;
-
-import javax.sound.midi.Instrument;
 import javax.sound.midi.MidiUnavailableException;
 
 import kw.mulitplay.game.group.PianoView;
-import kw.mulitplay.game.midi.gamemode.AbstractModeController;
-import kw.mulitplay.game.midi.gamemode.FluidModeController;
+import kw.mulitplay.game.midi.gamemode.ModeController;
 import kw.mulitplay.game.midi.handler.Channel;
-import kw.mulitplay.game.midi.handler.GameModeUtils;
 import kw.mulitplay.game.midi.handler.MidiInstruments;
 import kw.mulitplay.game.midi.handler.MidiUtils;
 import kw.mulitplay.game.midi.handler.Note;
@@ -37,18 +33,16 @@ public class DIMIDemoScreen extends BaseScreen {
     @Override
     protected void initView() {
         view = new PianoView();
+        view.setMode(0);
         view.showPianoKey();
         stage.addActor(view);
         try {
             MidiInstruments.getInstruments();
-//            MidiInstruments.selectInstrument(instruments[4]);
         } catch (MidiUnavailableException e) {
             e.printStackTrace();
         }
         FileHandle source = new FileHandle("3.mid");
-        AbstractModeController controller = new FluidModeController();
         try {
-            GameModeUtils.setGameMode(controller);
             Sheet sheet = MidiUtils.getSheet(source.file());
             Channel[] channels = sheet.getChannels();
             resolution = sheet.getResolution();
@@ -60,7 +54,6 @@ public class DIMIDemoScreen extends BaseScreen {
         }
         for (Channel channel : channelArray) {
             for (Note note : channel.getNotes()) {
-//                stage.addAction(Actions.);
                 actorTimeLines.add(new ActorTimeLine(note,view,resolution));
             }
         }

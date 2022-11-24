@@ -74,6 +74,7 @@ public class PianoView extends Group {
     private PianoKey getPianoKey(int keyIndex) {
         NinePatch ninePatch = new NinePatch(Asset.getAsset().getTexture("pianoImg/white.png"),5,5,5,5);
         PianoKey pianoKey = new PianoKey(ninePatch, keyIndex);
+        pianoKey.setMode(mode);
         String path = "";
         if (keyIndex <10){
             path = "0"+ keyIndex;
@@ -119,5 +120,10 @@ public class PianoView extends Group {
 
     public HashMap<String, PianoKey> getHashMap() {
         return hashMap;
+    }
+
+    private int mode;
+    public void setMode(int down) {
+        this.mode = down;
     }
 }

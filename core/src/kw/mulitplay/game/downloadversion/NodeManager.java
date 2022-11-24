@@ -12,6 +12,7 @@ import com.kw.gdx.asset.Asset;
 import java.util.HashMap;
 
 import kw.mulitplay.game.SoundKeyMap;
+import kw.mulitplay.game.constant.Constant;
 import kw.mulitplay.game.data.LittleStar;
 import kw.mulitplay.game.group.PianoKey;
 import kw.mulitplay.game.group.PianoView;
@@ -20,8 +21,15 @@ public class NodeManager {
     private Array<DownNode> downNodes;
     public NodeManager(PianoView view) {
         LittleStar json = new LittleStar();
+        float bpm = json.bpm;
+        float v1 = bpm / 60.0f;
+        String l = json.l;
+        String[] split = l.split("\\/");
+        String s11 = split[1];
+        Integer integer = Integer.valueOf(s11);
+        float baseTime = v1 / integer;
+
         downNodes = new Array<>();
-        float baseTime = 10;
         float target = 0;
         int indexCount = 0;
         String v[] = json.right;
@@ -32,6 +40,7 @@ public class NodeManager {
                 DownNode node = new DownNode(new NinePatch(Asset.getAsset().getTexture("pianoImg/black.png")));
                 downNodes.add(node);
                 String s3 = v[index];
+                System.out.println(s3+"     "+index);
                 boolean addNum = s3.contains("+");
                 boolean subNum = s3.contains("-");
                 boolean khNum = s3.contains("(");
@@ -53,8 +62,7 @@ public class NodeManager {
                 PianoKey actor = view.getHashMap().get(s2);
                 node.setKey(s2);
                 node.setBaseNodeX(actor.getX());
-                node.setBaseNodeY(60*indexCount-1);
-                node.setLength(50);
+
 //                actor.touchDownKey();
                 if (index + 1 < v.length) {
                     if (v[index + 1].equals("0")) {
@@ -73,10 +81,18 @@ public class NodeManager {
                     target = baseTime - baseTime / (2.0f * numKh);
                     times = target;
                 }
-                index++;
+
+
+                float v2 = Constant.panelMoveSpeed / 0.2f;
+                node.setLength(v2 * times - 0.1f);
+                node.setTime(times);
+                node.setBaseNodeY(offY);
+                offY += node.getLength()+5;
             }
         }
     }
+
+    float offY = 0;
 
     public Array<DownNode> getDownNodes() {
         return downNodes;

@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.utils.viewport.Viewport;
 public class Constant {
 
+    public static final int DOWN = 1;
+
     public static float width;
     public static float height;
     public static Viewport viewport;

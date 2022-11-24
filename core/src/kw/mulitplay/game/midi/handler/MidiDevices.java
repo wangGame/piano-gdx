@@ -15,8 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package kw.mulitplay.game.midi.handler;
-
-import kw.mulitplay.game.midi.gamemode.AbstractModeController;
 import java.util.ArrayList;
 import java.util.prefs.Preferences;
 import javax.sound.midi.MidiDevice;
@@ -65,18 +63,5 @@ public class MidiDevices {
         }
         prefs.put("SELECTED", device.getDeviceInfo().getName());
         selected.open();
-    }
-
-    public static void setGameController(AbstractModeController controller) throws MidiUnavailableException {
-        if (selected == null) {
-            System.err.println("No device selected!");
-            return;
-        }
-        Transmitter trans = selected.getTransmitter();
-        trans.setReceiver(controller);
-    }
-
-    public static void closeDevice() {
-        selected.close();
     }
 }

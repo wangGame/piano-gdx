@@ -3,12 +3,15 @@ package kw.mulitplay.game.downloadversion;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
+import kw.mulitplay.game.constant.Constant;
+
 public class DownNode extends Image{
     private float baseNodeX;
     private float baseNodeY;
     private float length;
     private String key;
     private int status;
+    private float times;
     public DownNode(NinePatch ninePatch){
         super(ninePatch);
     }
@@ -48,10 +51,11 @@ public class DownNode extends Image{
     @Override
     public void act(float delta) {
         super.act(delta);
-        baseNodeY -= 70*delta;
-        setY(baseNodeY);
+        float y = getY();
+        setY(y - Constant.panelMoveSpeed/0.2f*delta);
+        baseNodeY = getY();
         if (status == 0){
-            if (baseNodeY<=200){
+            if (baseNodeY<=0){
                 status = 1;
             }
         }
@@ -63,5 +67,13 @@ public class DownNode extends Image{
 
     public int getStatus() {
         return status;
+    }
+
+    public void setTime(float times) {
+        this.times = times;
+    }
+
+    public float getTimes() {
+        return times;
     }
 }

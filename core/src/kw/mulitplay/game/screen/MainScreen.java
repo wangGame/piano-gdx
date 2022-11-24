@@ -38,7 +38,25 @@ public class MainScreen extends BaseScreen {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
+                    enterScreen(new DIMIDemoScreen());
+                }
+            });
+            Image downMode = new Image(Asset.getAsset().getTexture("main/3.png"));
+            add(downMode).padLeft(50).padRight(50);
+            downMode.addListener(new ClickListener(){
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
                     enterScreen(new DownScreen());
+                }
+            });
+            Image sandBank = new Image(Asset.getAsset().getTexture("main/3.png"));
+            add(sandBank).padLeft(50).padRight(50);
+            sandBank.addListener(new ClickListener(){
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    enterScreen(new DeviceMidePlayerScreen());
                 }
             });
             pack();

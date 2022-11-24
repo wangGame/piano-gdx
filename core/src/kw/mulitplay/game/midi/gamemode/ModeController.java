@@ -26,44 +26,12 @@ import javax.sound.midi.ShortMessage;
  *
  * @author david
  */
-public abstract class AbstractModeController implements Receiver {
-
-    private static final int NOTE_ON = 0x90;
-    private static final int NOTE_OFF = 0x80;
-
-    public abstract void onUserPress(int key);
-
-    public abstract void onUserRelease(int key);
-
-    public abstract long getScore();
+public class ModeController implements Receiver {
 
     @Override
     public void send(MidiMessage mm, long l) {
         if (mm instanceof ShortMessage) {
-            ShortMessage message = (ShortMessage) mm;
 
-            int command = message.getCommand();
-            int key = message.getData1();
-            int velocity = message.getData2();
-
-            if (velocity == 0) {
-                command = NOTE_OFF;
-            }
-
-            switch (command) {
-                case NOTE_ON: {
-                    onUserPress(key);
-                    break;
-                }
-                case NOTE_OFF: {
-                    onUserRelease(key);
-                    break;
-                }
-                default: {
-                    System.err.println("Unsupport Midi device command");
-                    break;
-                }
-            }
         } else {
             System.err.println("Unsupport Midi device message");
         }
