@@ -169,7 +169,7 @@ public class SoundKeyMap {
         indexToAG.put("49",   "a1");
         indexToAG.put("51",   "b1");
         indexToAG.put("52",   "c2");
-        indexToAG.put("54",   "d3");
+        indexToAG.put("54",   "d2");
         indexToAG.put("56",   "e2");
         indexToAG.put("57",   "f2");
         indexToAG.put("59",   "g2");
@@ -225,7 +225,7 @@ public class SoundKeyMap {
         AGToIndex.put("a1","49");
         AGToIndex.put("b1","51");
         AGToIndex.put("c2","52");
-        AGToIndex.put("d3","54");
+        AGToIndex.put("d2","54");
         AGToIndex.put("e2","56");
         AGToIndex.put("f2","57");
         AGToIndex.put("g2","59");

@@ -59,6 +59,15 @@ public class MainScreen extends BaseScreen {
                     enterScreen(new DeviceMidePlayerScreen());
                 }
             });
+            Image testJson = new Image(Asset.getAsset().getTexture("main/3.png"));
+            add(testJson).padLeft(50).padRight(50);
+            testJson.addListener(new ClickListener(){
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    enterScreen(new TestAutoScreen());
+                }
+            });
             pack();
             setPosition(Constant.width/2,Constant.height/2, Align.center);
         }};
