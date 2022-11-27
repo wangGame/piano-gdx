@@ -69,3 +69,13 @@ String[] arr = {
     -1,2,3,4
 };
 
+
+## 钢琴块2
+
+baseBpm：初始速度。
+musics:代表不同分段
+
+baseBeats：基础拍子
+音块的长度：音块的beats/base;
+
+scores:第一个为音轨，第二个为伴奏

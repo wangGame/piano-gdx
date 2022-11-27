@@ -87,6 +87,7 @@ public class PianoView extends Group {
         pianoKey.addCallBack(new CallBack() {
             @Override
             public void callBack(Object o) {
+                setTouchLabel((String)o);
                 touchDownKey.setText((String)o);
                 touchDownKey.setPosition(Constant.width/2,Constant.height-50, Align.center);
             }
@@ -116,6 +117,19 @@ public class PianoView extends Group {
         touchDownKey.setAlignment(Align.center);
         touchDownKey.setFontScale(5);
         touchDownKey.setColor(Color.RED);
+    }
+
+    private Label touLabel;
+    public void setLabel(Label touLabel){
+        this.touLabel = touLabel;
+    }
+
+    StringBuilder builder = new StringBuilder();
+    public void setTouchLabel(String txt){
+        if (touLabel==null)return;
+        builder.append(txt+" ");
+
+        touLabel.setText(builder.toString());
     }
 
     public HashMap<String, PianoKey> getHashMap() {

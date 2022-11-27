@@ -2,12 +2,17 @@ package kw.mulitplay.game.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.utils.Align;
+import com.kw.gdx.asset.Asset;
 
 import java.util.HashMap;
 
+import kw.mulitplay.game.AssetLoadFile;
 import kw.mulitplay.game.SoundKeyMap;
 import kw.mulitplay.game.constant.Constant;
 import kw.mulitplay.game.data.Yanyuan;
@@ -17,6 +22,7 @@ import kw.mulitplay.game.screen.base.BaseScreen;
 
 public class TanPianoScreen extends BaseScreen {
     private PianoView view;
+    private Label touchLabel;
 
     @Override
     protected void initView() {
@@ -28,6 +34,19 @@ public class TanPianoScreen extends BaseScreen {
         view.setMode(0);
         stage.addActor(view);
         view.showPianoKey();
+        touchLabel = new Label("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",new Label.LabelStyle(){
+            {
+                font = AssetLoadFile.getBR40();
+            }
+        });
+        touchLabel.setDebug(true);
+        view.setLabel(touchLabel);
+        touchLabel.setWrap(true);
+        touchLabel.setWidth(Constant.width);
+        touchLabel.setAlignment(Align.center);
+        touchLabel.setColor(Color.BLACK);
+        touchLabel.setPosition(Constant.width/2, Constant.height/2, Align.center);
+        stage.addActor(touchLabel);
     }
 
     @Override

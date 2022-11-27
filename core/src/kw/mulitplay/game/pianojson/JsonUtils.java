@@ -1,11 +1,9 @@
 package kw.mulitplay.game.pianojson;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 
-import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,7 +20,7 @@ public class JsonUtils {
         readFile();
     }
 
-    private static Array<NoteDataBean> stringToTiles(String str) {
+    private static Array<NoteDataBean> stringToTiles(String str, float bpm) {
         Array<NoteDataBean> noteDataArray = new Array<>();
         Pattern pattern = Pattern.compile("(\\d+<.+?>|[Q-Y]+|.*?\\[[H-P]*\\]|)[,;]");
         Matcher matcher = pattern.matcher(str);
@@ -50,6 +48,7 @@ public class JsonUtils {
                     Matcher matcher2 = compile.matcher(s1);
                     NoteDataBean bean = new NoteDataBean();
                     noteDataArray.add(bean);
+                    bean.setBpm(bpm);
                     bean.setType(type);
                     bean.setLen(len);
                     bean.setNodes(new Array<>());
@@ -123,7 +122,8 @@ public class JsonUtils {
         return num;
     }
 
-    public static Array<Array<NoteDataBean>> readFile() {
+    public static JsonDataBean readFile() {
+        JsonDataBean jsonDataBean = new JsonDataBean();
         Array<Array<NoteDataBean>> arrayArray = new Array<>();
         Json json = new Json();
         FileHandle exampleJson = new FileHandle("Two Tigers.json");
@@ -131,6 +131,9 @@ public class JsonUtils {
         PythonDict jsonRoot = json.fromJson(PythonDict.class, JsonString);
         PythonArray musics = (PythonArray) jsonRoot.get("musics");
         Array<JsonData> jsonDataArray = new Array<>();
+        float baseBpm = (float) jsonRoot.get("baseBpm");
+        jsonDataBean.setBaseBpm(baseBpm);
+        jsonDataBean.setArrayArray(arrayArray);
         for (int i = 0; i < musics.size; i++) {
             PythonDict data = (PythonDict) musics.get(i);
             Float id = data.get("id",Float.class);
@@ -153,20 +156,25 @@ public class JsonUtils {
         for (int i1 = 0; i1 < jsonDataArray.size; i1++) {
             JsonData jsonData = jsonDataArray.get(i1);
             float baseBeats = jsonData.getBaseBeats();
+            float bpm = jsonData.getBpm();
+            if (bpm == 0){
+                System.out.println( "- -------------");
+            }
             //music
             Array<String> scores = jsonData.getScores();
-            Array<NoteDataBean> base = stringToTiles(scores.get(0));
+            Array<NoteDataBean> base = stringToTiles(scores.get(0),jsonData.getBpm());
             for (int i = 1; i < scores.size; i++) {
                 float baseDur = 0;
                 int baseIdx = 0;
                 float branchDur = 0;
                 int branchIdx = 0;
                 //将第二个插入
-                Array<NoteDataBean> branch = stringToTiles(scores.get(i));
+                Array<NoteDataBean> branch = stringToTiles(scores.get(i), jsonData.getBpm());
                 while (baseIdx < base.size && branchIdx < branch.size) {
                     if (branchDur < baseDur + base.get(baseIdx).getLen()) {
                         if (branch.get(branchIdx).getNodes().size>0) {
                             NoteDataBean data = base.get(baseIdx);
+                            data.setBpm(jsonData.getBpm());
                             NoteData data1 = new NoteData();
                             data1.setNodeName(branch.get(branchIdx).getNodes().get(0).getNodeName());
                             data1.setStart(branchDur - baseDur);
@@ -186,11 +194,13 @@ public class JsonUtils {
                 bean.setLen(bean.getLen()/baseBeats);
                 if (bean.getLen()>1.0f){
                     bean.setType(6);
-                }else {bean.setType(2);}
+                }else {
+                    bean.setType(2);
+                }
             }
             arrayArray.add(base);
             System.out.println(base);
         }
-        return arrayArray;
+        return jsonDataBean;
     }
 }

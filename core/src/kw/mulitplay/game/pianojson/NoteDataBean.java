@@ -6,6 +6,15 @@ public class NoteDataBean {
     private int type;
     private Array<NoteData> nodes;
     private float len;
+    private float bpm;
+
+    public void setBpm(float bpm) {
+        this.bpm = bpm;
+    }
+
+    public float getBpm() {
+        return bpm;
+    }
 
     public void setType(int type) {
         this.type = type;

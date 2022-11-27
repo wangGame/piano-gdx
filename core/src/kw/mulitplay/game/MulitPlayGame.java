@@ -10,7 +10,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import kw.mulitplay.game.constant.Constant;
 import kw.mulitplay.game.screen.LoadingScreen;
-import kw.mulitplay.game.screen.TTScreen;
 
 public class MulitPlayGame extends Game {
     private Viewport viewport;
@@ -19,7 +18,7 @@ public class MulitPlayGame extends Game {
     public void create() {
         initInstance();
         //create viewport and as a constant
-        setScreen(new TTScreen());
+        setScreen(new LoadingScreen());
     }
 
     public void initInstance(){

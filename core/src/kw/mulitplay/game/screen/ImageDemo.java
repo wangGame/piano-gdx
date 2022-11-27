@@ -3,11 +3,15 @@ package kw.mulitplay.game.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
 
+import kw.mulitplay.game.constant.Constant;
+
 public class ImageDemo extends Image {
     private Array<Sound> array;
+    private float bpm;
     public ImageDemo(Texture texture){
         super(texture);
         array = new Array<>();
@@ -36,15 +40,25 @@ public class ImageDemo extends Image {
         }
     }
 
+    private boolean isTouch;
     @Override
     public void act(float delta) {
         super.act(delta);
-        if (getY()<0) {
+        setY(getY() - Constant.speed);
+        System.out.println(Constant.speed);
+        if (getY()<300&&!isTouch) {
+            isTouch = true;
+            Constant.speed = 60.0f/bpm * 30.0f;
             System.out.println("-----------------"+strName);
             for (Sound sound : array) {
                 sound.play();
             }
-            remove();
+            addAction(Actions.fadeOut(0.3f));
         }
+    }
+
+    public void setBpm(float bpm) {
+        System.out.println(bpm+"-------------------");
+        this.bpm = bpm;
     }
 }
